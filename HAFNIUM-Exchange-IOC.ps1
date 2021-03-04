@@ -204,7 +204,7 @@ Foreach ($p in $webShellPaths) {
   
   foreach ($hash in $shellHashes){ 
 
-  if ($file | Get-FileHash -eq  "$hash"){
+  if (($file | Get-FileHash).Hash -eq  "$hash"){
 
      $shellHits += $file.FullName
      break
