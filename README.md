@@ -7,4 +7,14 @@ Hafnium-IOC is under the [MIT license](https://github.com/soteria-security/HAFNI
 
 ## Usage
 
-The script is designed to be used with the default setup of Microsoft Exchange. If you have installed Exchange on a separate standalone drive, you will need to modify the variables under the variable heading in the script itself. Due to the nature of Exchange is recommended you run the script on every Exchange server if using a DAG. The script will output findings from both the console and a log file in the current working directory. This setting is also configurable in the variable setting.
+Due to the nature of Exchange is recommended you run the script on every Exchange server if using a DAG. The script will output findings from both the console and a log file in the current working directory. This setting is also configurable in the variable setting. The script is parameterized to accept the full path of a log file. If no path is provided, a log file will be created in the user's home directory with the name yyyy_MM_dd HH.mm.ss-Hafnium_IOCs.txt.
+
+To execute the script, simply:
+```
+.\HAFNIUM-Exchange-IOC
+```
+
+Or to specify a different log path:
+```
+.\HAFNIUM-Exchange-IOC -logPath "C:\Temp\Hafnium_Results.log
+```
