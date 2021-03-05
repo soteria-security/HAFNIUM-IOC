@@ -16,5 +16,5 @@ To execute the script, simply:
 
 Or to specify a different log path:
 ```
-.\HAFNIUM-Exchange-IOC -logPath "C:\Temp\Hafnium_Results.log
+.\HAFNIUM-Exchange-IOC -logPath "C:\Temp\Hafnium_Results.log"
 ```
