@@ -259,7 +259,7 @@ function Check-Web_Shell {
         Write-Progress -Activity "Searching for web shells..." -Status "$prc% Complete:" -PercentComplete $prc
         foreach ($hash in $shellHashes) { 
 
-          if (($file | Get-FileHash).Hash -eq "$hash") {
+          if ((Get-FileHash $file).Hash -eq "$hash") {
   
             $shellHits += $file
             break
