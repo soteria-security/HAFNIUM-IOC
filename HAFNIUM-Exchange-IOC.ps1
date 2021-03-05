@@ -154,10 +154,10 @@ function Check-CVE_2021_26857 {
   Param (
     [Parameter (Mandatory = $True)][string]$logPath
   )
-  $myLogs = Get-EventLog -LogName Application -Source "MSExchange Unified Messaging" -EntryType Error | Where-Object { $_.Message -like "*System.InvalidCastException*" }
+  $myLogs = Get-EventLog -LogName Application -Source "MSExchange Unified Messaging" -EntryType Error -ErrorAction Ignore | Where-Object { $_.Message -like "*System.InvalidCastException*" }
 
   #Returning Results
-  if ($myLogs -eq "") {
+  if ($myLogs -eq $null) {
 
     Write-Host "No indicators for CVE-2021-26857 found"
     Add-Content -Path "$logPath" -Value "No indicators for CVE-2021-26857 found"
