@@ -32,7 +32,7 @@ param ($logPath="$env:HOMEPATH\$(Get-Date -Format 'yyyy_MM_dd HH.mm.ss')-Hafnium
 
   [cmdletbinding()]
   Param (
-    [Parameter (Mandatory = $True)][string]$LogFile
+    [Parameter (Mandatory = $True)][string]$logPath
   )
   $CVE_2021_26855 = @()
   #Checking to see if path exist
@@ -67,16 +67,16 @@ param ($logPath="$env:HOMEPATH\$(Get-Date -Format 'yyyy_MM_dd HH.mm.ss')-Hafnium
   if ($CVE_2021_26855.Count -eq 0) {
 
     Write-Host "No indicators for CVE-2021-26855 found"
-    Add-Content -Path "$LogFile" -Value "No indicators for CVE-2021-26855 found"
+    Add-Content -Path "$logPath" -Value "No indicators for CVE-2021-26855 found"
 
   }
   else {
 
     Write-Warning -Message "Indicators for CVE-2021-26855 found!"
-    Add-Content -Path "$LogFile" -Value "Indicators for CVE-2021-26855 found!"
+    Add-Content -Path "$logPath" -Value "Indicators for CVE-2021-26855 found!"
     $CVE_2021_26855 | ForEach-Object { 
 
-      Add-Content -Path "$LogFile" -Value "$_"
+      Add-Content -Path "$logPath" -Value "$_"
 
     }
   }
@@ -91,7 +91,7 @@ function Check-CVE_2021_26858 {
   
   [cmdletbinding()]
   Param (
-    [Parameter (Mandatory = $True)][string]$LogFile
+    [Parameter (Mandatory = $True)][string]$logPath
   )
   $CVE_2021_26858 = @()
   #Checking to see if path exist
@@ -132,10 +132,10 @@ function Check-CVE_2021_26858 {
   else {
 
     Write-Warning -Message "Indicators for CVE_2021_26858 found!"
-    Add-Content -Path "$LogFile" -Value "Indicators for CVE_2021_26858 found!"
+    Add-Content -Path "$logPath" -Value "Indicators for CVE_2021_26858 found!"
     $CVE_2021_26858 | ForEach-Object { 
 
-      Add-Content -Path "$LogFile" -Value "$_"
+      Add-Content -Path "$logPath" -Value "$_"
 
     }
   }
@@ -152,7 +152,7 @@ function Check-CVE_2021_26857 {
 
   [cmdletbinding()]
   Param (
-    [Parameter (Mandatory = $True)][string]$LogFile
+    [Parameter (Mandatory = $True)][string]$logPath
   )
   $myLogs = Get-EventLog -LogName Application -Source "MSExchange Unified Messaging" -EntryType Error | Where-Object { $_.Message -like "*System.InvalidCastException*" }
 
@@ -160,14 +160,14 @@ function Check-CVE_2021_26857 {
   if ($myLogs -eq "") {
 
     Write-Host "No indicators for CVE-2021-26857 found"
-    Add-Content -Path "$LogFile" -Value "No indicators for CVE-2021-26857 found"
+    Add-Content -Path "$logPath" -Value "No indicators for CVE-2021-26857 found"
 
   }
   else {
 
     Write-Warning -Message "Indicators for CVE-2021-26857 found!"
-    Add-Content -Path "$LogFile" -Value "Indicators for CVE-2021-26857 found!"
-    Add-Content -Path "$LogFile" -Value "$myLogs"
+    Add-Content -Path "$logPath" -Value "Indicators for CVE-2021-26857 found!"
+    Add-Content -Path "$logPath" -Value "$myLogs"
 
   }
 }
@@ -178,7 +178,7 @@ For more info see https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021
 function Check-CVE_2021_27065 {
   [cmdletbinding()]
   Param (
-    [Parameter (Mandatory = $True)][string]$LogFile
+    [Parameter (Mandatory = $True)][string]$logPath
   )
   
   $CVE_2021_27065 = @()
@@ -218,16 +218,16 @@ function Check-CVE_2021_27065 {
   if ($CVE_2021_27065.Count -eq 0) {
 
     Write-Host "No indicators for CVE-2021-27065 found"
-    Add-Content -Path "$LogFile" -Value "No indicators for CVE-2021-27065 found"
+    Add-Content -Path "$logPath" -Value "No indicators for CVE-2021-27065 found"
 
   }
   else {
 
     Write-Warning -Message "Indicators for CVE-2021-27065 found!"
-    Add-Content -Path "$LogFile" -Value "Indicators for CVE-2021-27065 found!"
+    Add-Content -Path "$logPath" -Value "Indicators for CVE-2021-27065 found!"
     $CVE_2021_27065 | ForEach-Object { 
 
-      Add-Content -Path "$LogFile" -Value "$_"
+      Add-Content -Path "$logPath" -Value "$_"
 
     }
   }
@@ -240,7 +240,7 @@ function Check-Web_Shell {
 
   [cmdletbinding()]
   Param (
-    [Parameter (Mandatory = $True)][string]$LogFile
+    [Parameter (Mandatory = $True)][string]$logPath
   )
   $shellHits = @()
   #Hash list provide by MS
@@ -281,16 +281,16 @@ function Check-Web_Shell {
   if ($shellHits.Count -eq 0) {
 
     Write-Host "No web shell IOCs found"
-    Add-Content -Path "$LogFile" -Value "No web shell IOCs found"
+    Add-Content -Path "$logPath" -Value "No web shell IOCs found"
 
   }
   else {
 
     Write-Warning -Message "Web shell IOCs found!"
-    Add-Content -Path "$LogFile" -Value "Web shell IOCs found!"
+    Add-Content -Path "$logPath" -Value "Web shell IOCs found!"
     $shellHits | ForEach-Object { 
 
-      Add-Content -Path "$LogFile" -Value "$_"
+      Add-Content -Path "$logPath" -Value "$_"
 
     }
   }
@@ -303,44 +303,44 @@ function Check-Web_Shell {
  ##############################>
 
 #Creating Log File
-New-Item -Path "$logFile" -ItemType "file"
+New-Item -Path "$logPath" -ItemType "file"
 
 #CVE-2021-26855 Check
 Write-Host "Checking for CVE-2021-26855"
-Add-Content -Path "$logFile" -Value "Checking for CVE-2021-26855"
-Check-CVE_2021_26855 $logFile
-Add-Content -Path "$logFile" -Value ""
-Add-Content -Path "$logFile" -Value "________________________"
-Add-Content -Path "$logFile" -Value ""
+Add-Content -Path "$logPath" -Value "Checking for CVE-2021-26855"
+Check-CVE_2021_26855 $logPath
+Add-Content -Path "$logPath" -Value ""
+Add-Content -Path "$logPath" -Value "________________________"
+Add-Content -Path "$logPath" -Value ""
 
 #CVE-2021-26858 Check
 Write-Host "Checking for CVE-2021-26858"
-Add-Content -Path "$logFile" -Value "Checking for CVE-2021-26858"
-Check-CVE_2021_26858 $logFile
-Add-Content -Path "$logFile" -Value ""
-Add-Content -Path "$logFile" -Value "________________________"
-Add-Content -Path "$logFile" -Value ""
+Add-Content -Path "$logPath" -Value "Checking for CVE-2021-26858"
+Check-CVE_2021_26858 $logPath
+Add-Content -Path "$logPath" -Value ""
+Add-Content -Path "$logPath" -Value "________________________"
+Add-Content -Path "$logPath" -Value ""
 
 #CVE-2021-26857 Check
 Write-Host "Checking for CVE-2021-26857"
-Add-Content -Path "$logFile" -Value "Checking for CVE-2021-26857"
-Check-CVE_2021_26857 $logFile
-Add-Content -Path "$logFile" -Value ""
-Add-Content -Path "$logFile" -Value "________________________"
-Add-Content -Path "$logFile" -Value ""
+Add-Content -Path "$logPath" -Value "Checking for CVE-2021-26857"
+Check-CVE_2021_26857 $logPath
+Add-Content -Path "$logPath" -Value ""
+Add-Content -Path "$logPath" -Value "________________________"
+Add-Content -Path "$logPath" -Value ""
 
 #CVE-2021-27065 Check
 Write-Host "Checking for CVE-2021-27065"
-Add-Content -Path "$logFile" -Value "Checking for CVE-2021-27065"
-Check-CVE_2021_27065 $logFile
-Add-Content -Path "$logFile" -Value ""
-Add-Content -Path "$logFile" -Value "________________________"
-Add-Content -Path "$logFile" -Value ""
+Add-Content -Path "$logPath" -Value "Checking for CVE-2021-27065"
+Check-CVE_2021_27065 $logPath
+Add-Content -Path "$logPath" -Value ""
+Add-Content -Path "$logPath" -Value "________________________"
+Add-Content -Path "$logPath" -Value ""
 
 #Web Shell IOC Check
 Write-Host "Checking for web shell IOCs"
 Add-Content -Path "$logPath" -Value "Checking for web shell IOCs"
-Check-Web_Shell $logFile
-Add-Content -Path "$logFile" -Value ""
-Add-Content -Path "$logFile" -Value "________________________"
-Add-Content -Path "$logFile" -Value ""
+Check-Web_Shell $logPath
+Add-Content -Path "$logPath" -Value ""
+Add-Content -Path "$logPath" -Value "________________________"
+Add-Content -Path "$logPath" -Value ""
